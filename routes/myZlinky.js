@@ -26,10 +26,10 @@ router.get("/myZlinky/semihour/list", async (req, res) => {
 
 router.put("/myZlinky/semihour/put", async (req, res) => {
   try {
-    const { time, index, consumption } = req.body;
-    const request = `INSERT INTO SemiHour (time, index, consumption) VALUES ("${time}","${Number(
-      index
-    )}","${Number(consumption)})`;
+    const { time, counterIndex, consumption } = req.body;
+    const request = `INSERT INTO SemiHour (time, counterIndex, consumption) VALUES ("${time}",${Number(
+      counterIndex
+    )},${Number(consumption)})`;
     const conn = await pool.getConnection();
     const response = await conn.query(request);
     await conn.end();
