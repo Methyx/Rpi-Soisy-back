@@ -12,9 +12,9 @@ const pool = mariadb.createPool({
   connectionLimit: 5,
 });
 
-router.get("/myZlinky/shortterm/get", async (req, res) => {
+router.get("/myZlinky/semihour/list", async (req, res) => {
   try {
-    const request = "SELECT * FROM short-term";
+    const request = "SELECT * FROM SemiHour";
     const conn = await pool.getConnection();
     const response = await conn.query(request);
     await conn.end();
@@ -24,12 +24,12 @@ router.get("/myZlinky/shortterm/get", async (req, res) => {
   }
 });
 
-router.put("/myZlinky/shortterm/put", async (req, res) => {
+router.put("/myZlinky/semihour/put", async (req, res) => {
   try {
-    const { time, index, conso } = req.body;
-    const request = `INSERT INTO short-term (time, index, value) VALUES ("${time}","${Number(
+    const { time, index, consumption } = req.body;
+    const request = `INSERT INTO SemiHour (time, index, consumption) VALUES ("${time}","${Number(
       index
-    )}","${Number(conso)})`;
+    )}","${Number(consumption)})`;
     const conn = await pool.getConnection();
     const response = await conn.query(request);
     await conn.end();
