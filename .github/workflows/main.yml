@@ -1,0 +1,39 @@
+name: RPI-Deploy Back
+
+on:
+  push:
+    branches: [main]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy-via-sftp:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: SFTP Deploy
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.1
+        with:
+          username: phil
+          server: methyx.ddns.net
+          port: 22 # default is 22
+          ssh_private_key: ${{ secrets.SSH_RPI_BACK }}
+          local_path: ./* # default is ./*
+          remote_path: /home/phil/Node-server
+          # sftp args
+          args: "-o ConnectTimeout=5"
+
+      - name: Connect with ssh
+        uses: appleboy/ssh-action@master
+        with:
+          username: phil
+          host: methyx.ddns.net
+          port: 22 # default is 22
+          key: ${{ secrets.SSH_RPI_BACK }}
+          script: |
+            cd /home/phil/Node-server
+            npm install
+            pm2 delete index.js
+            pm2 start index.js

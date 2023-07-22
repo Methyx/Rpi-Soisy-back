@@ -12,7 +12,7 @@ app.use(cors());
 app.use(require("./routes/myZlinky"));
 
 app.get("/test", async (req, res) => {
-  res.json("coucou les amis");
+  res.json("coucou mes amis");
 });
 
 app.all("*", (req, res) => {
