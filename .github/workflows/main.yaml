@@ -18,4 +18,4 @@ jobs:
           username: api@methyx.ddns.net
           password: ${{ secrets.API_FTP_PASSWORD }}
           local-dir: ./
-          server-dir: ./api/
+          server-dir: ./
