@@ -15,7 +15,7 @@ jobs:
         with:
           port: 21
           server: methyx.ddns.net
-          username: git@methyx.ddns.net
-          password: ${{ secrets.git_ftp_password }}
+          username: api@methyx.ddns.net
+          password: ${{ secrets.API_FTP_PASSWORD }}
           local-dir: ./
-          server-dir: ../homes/api/
+          server-dir: ./api/
