@@ -1,4 +1,3 @@
-const https = require("https");
 const fs = require("fs");
 const express = require("express");
 const cors = require("cors");
@@ -9,9 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use(require("./routes/myZlinky"));
-
-app.get("/test", async (req, res) => {
+app.get("/allo", async (req, res) => {
   res.json("coucou mes amis");
 });
 
