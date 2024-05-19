@@ -1,21 +1,41 @@
+name: PROD01-Back-Autodeploy-on app
+
 on:
   push:
     branches: [main]
-name: 🚀 Deploy website on push
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  deploy-via-sftp:
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: SFTP Deploy
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
-          port: 21
+          username: methyx
           server: methyx.ddns.net
-          username: api@methyx.ddns.net
-          password: ${{ secrets.API_FTP_PASSWORD }}
-          local-dir: ./
-          server-dir: ./
+          port: 22 # default is 22
+          ssh_private_key: ${{ secrets.METH_SSH }}
+
+          local_path: ./* # default is ./*
+          remote_path: /home/methyx/homes/back/
+
+          # sftp args
+          args: "-o ConnectTimeout=5"
+
+      - name: Connect with ssh
+        uses: appleboy/ssh-action@master
+        with:
+          username: methyx
+          host: methyx.ddns.net
+          port: 22 # default is 22
+          key: ${{ secrets.METH_SSH }}
+          script: |
+            cd /home/methyx/homes/back
+            npm install
+            pm2 delete index.js
+            pm2 start index.js
