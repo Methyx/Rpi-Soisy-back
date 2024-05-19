@@ -17,7 +17,7 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
           username: methyx
-          server: methyx.fr
+          server: methyx.ddns.net
           port: 22 # default is 22
           ssh_private_key: ${{ secrets.METH_SSH }}
 
@@ -31,7 +31,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           username: methyx
-          host: methyx.fr
+          host: methyx.ddns.net
           port: 22 # default is 22
           key: ${{ secrets.METH_SSH }}
           script: |
