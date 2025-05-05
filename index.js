@@ -17,5 +17,5 @@ app.all("*", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log("Server is Listening on port : ", process.env.PORT);
+  console.log(new Date(), "Server is Listening on port : ", process.env.PORT);
 });
