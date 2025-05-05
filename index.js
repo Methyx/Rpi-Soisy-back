@@ -16,7 +16,7 @@ app.get("/getkWattsColor", async (req, res) => {
   try {
     const key = "8055ab6b8560796d19caf2510a878ac3"; // philippe.mercy@free.fr on DEV
     const response = await axios.get(
-      "https://dev01.cumkwatt.com/api_front?key=" + key
+      "https://dev01.cumkwatt.com/api_front/solar/kwattsColorOfToday?key=" + key
     );
     res.json(response.data);
   } catch (error) {
